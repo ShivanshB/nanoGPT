@@ -84,7 +84,7 @@ class Head(nn.Module):
         k, q, v = self.key(x), self.query(x), self.value(x)
 
         wei = q @ k.transpose(-2, -1) * k.shape[-1] ** -0.5
-        wei = wei.masked_fill(self.tril[:T, :T] == 0, float('inf'))
+        wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf'))
         wei = F.softmax(wei, dim=-1)
         wei = self.dropout(wei)
         out = wei @ v
