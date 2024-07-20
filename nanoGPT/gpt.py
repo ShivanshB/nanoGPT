@@ -21,6 +21,9 @@ n_layer = 6
 dropout = 0.2
 # ------------------ 
 
+# verifying device type
+print(f"Device: {device}")
+
 wget.download("https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt")
 with open('input.txt', 'r', encoding='utf-8') as f:
     text = f.read()
