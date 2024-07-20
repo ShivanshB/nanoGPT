@@ -212,3 +212,7 @@ for iter in tqdm(range(max_iters)):
 # generate from model
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
 print(decode(m.generate(context, max_new_tokens=1000)[0].tolist()))
+
+
+# save model weights
+torch.save(model.state_dict(), 'shakespeare_gpt.pth')
