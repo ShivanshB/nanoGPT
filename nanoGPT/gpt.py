@@ -2,6 +2,9 @@ import torch
 import wget
 import torch.nn as nn
 from torch.nn import functional as F
+import tqdm
+
+from tqdm import tqdm
 
 # hyperparameters
 batch_size = 64
@@ -191,7 +194,7 @@ print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
 # create standard optimizer
 optim = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
-for iter in range(max_iters):
+for iter in tqdm(range(max_iters)):
     if iter % eval_interval == 0:
         losses = estimate_loss()
         print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
@@ -204,4 +207,4 @@ for iter in range(max_iters):
 
 # generate from model
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
-print(decode(m.generate(context, max_new_tokens=500)[0].tolist()))
+print(decode(m.generate(context, max_new_tokens=1000)[0].tolist()))
